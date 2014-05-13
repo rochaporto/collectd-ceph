@@ -1,0 +1,14 @@
+Source: collectd-ceph
+Section: net
+Priority: optional
+Maintainer: Ricardo Rocha <ricardo@catalyst.net.nz>
+Uploaders: Ricardo Rocha <ricardo@catalyst.net.nz>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.3
+Homepage: https://github.com/rochaport/collectd-ceph
+
+Package: collectd-ceph
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ceph
+Description: Plugins for collectd stats monitoring of Ceph instances
+ This package provides various plugins for collecting Ceph stats.

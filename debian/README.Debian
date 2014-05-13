@@ -1,0 +1,6 @@
+collectd-ceph for Debian
+-----------------------------
+
+Test package for inclusion in debian/ubuntu.
+
+ -- Ricardo Rocha <rocha.porto@gmail.com>  Tue, 12 May 2014 11:03:37 +1200

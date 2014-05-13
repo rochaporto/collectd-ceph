@@ -1,0 +1,5 @@
+collectd-ceph (0.1-1ubuntu1) precise; urgency=low
+
+  * Initial release.
+
+ -- Ricardo Rocha <ricardo@catalyst.net.nz>  Tue, 12 May 2014 18:25:06 +0200
