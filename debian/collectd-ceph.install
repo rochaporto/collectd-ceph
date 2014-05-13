@@ -1,1 +1,1 @@
-plugins/*       /usr/lib/collectd/plugins
+plugins/*       /usr/lib/collectd/plugins/ceph
