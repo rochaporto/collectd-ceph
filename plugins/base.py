@@ -26,7 +26,6 @@
 # collectd-python:
 #   http://collectd.org/documentation/manpages/collectd-python.5.shtml
 #
-
 import collectd
 import traceback
 
@@ -35,6 +34,7 @@ class Base(object):
     def __init__(self):
         self.verbose = False
         self.prefix = ''
+        self.cluster = 'ceph'
 
     def config_callback(self, conf):
         """Takes a collectd conf object and fills in the local config."""
@@ -44,6 +44,8 @@ class Base(object):
                     self.verbose = True
             elif node.key == "Prefix":
                 self.prefix = node.values[0]
+            elif node.key == 'Cluster':
+                self.cluster == node.values[0]
             else:
                 collectd.warning("%s: unknown config key: %s" % (self.prefix, node.key))
 
@@ -56,7 +58,7 @@ class Base(object):
         {'plugin': {'plugin_instance': {'type': {'type_instance': <value>, ...}}}}
         """
         if not stats:
-            collectd.error("%s: failed to retrieve stats from glance" % self.prefix)
+            collectd.error("%s: failed to retrieve stats" % self.prefix)
             return
 
         self.logverbose("dispatching %d new stats :: %s" % (len(stats), stats))
