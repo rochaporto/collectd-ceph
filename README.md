@@ -5,6 +5,13 @@ collectd-ceph
 
 A set of collectd plugins monitoring and publishing metrics for Ceph components.
 
+One common setup is to push the metrics into graphite, and display using dashboards based on graphite or grafana
+
+## Screenshots
+
+Grafana dashboard display.
+![image](https://raw.github.com/rochaporto/collectd-ceph/master/public/ceph-overview.png)
+
 ## Requirements
 
 It assumes an existing installation of [collectd](http://collectd.org/documentation.shtml).
