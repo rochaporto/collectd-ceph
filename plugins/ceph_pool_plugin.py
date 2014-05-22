@@ -82,9 +82,9 @@ class CephPoolPlugin(base.Base):
 
         # push totals from df
         data[self.prefix][self.cluster]['cluster'] = {}
-        data[self.prefix][self.cluster]['cluster']['total_space'] = json_df_data['stats']['total_space']
-        data[self.prefix][self.cluster]['cluster']['total_used'] = json_df_data['stats']['total_used']
-        data[self.prefix][self.cluster]['cluster']['total_avail'] = json_df_data['stats']['total_avail']
+        data[self.prefix][self.cluster]['cluster']['total_space'] = int(json_df_data['stats']['total_space']) * 1024.0
+        data[self.prefix][self.cluster]['cluster']['total_used'] = int(json_df_data['stats']['total_used']) * 1024.0
+        data[self.prefix][self.cluster]['cluster']['total_avail'] = int(json_df_data['stats']['total_avail']) * 1024.0
 
         return data
 
