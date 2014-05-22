@@ -36,6 +36,8 @@ class Base(object):
         self.verbose = False
         self.prefix = ''
         self.cluster = 'ceph'
+        self.testpool = 'test'
+        self.interval = None
 
     def config_callback(self, conf):
         """Takes a collectd conf object and fills in the local config."""
@@ -47,6 +49,10 @@ class Base(object):
                 self.prefix = node.values[0]
             elif node.key == 'Cluster':
                 self.cluster = node.values[0]
+            elif node.key == 'TestPool':
+                self.testpool = node.values[0]
+            elif node.key == 'Interval':
+                self.interval = int(node.values[0])
             else:
                 collectd.warning("%s: unknown config key: %s" % (self.prefix, node.key))
 
@@ -85,6 +91,7 @@ class Base(object):
         val.plugin_instance=plugin_instance
         val.type_instance="%s-%s" % (type, type_instance)
         val.values=[value]
+        val.interval = self.interval
         val.dispatch()
 
     def read_callback(self):
