@@ -73,10 +73,14 @@ class Base(object):
             for plugin in stats.keys():
                 for plugin_instance in stats[plugin].keys():
                     for type in stats[plugin][plugin_instance].keys():
-                        for type_instance in stats[plugin][plugin_instance][type].keys():
-                            self.dispatch_value(plugin, plugin_instance,
-                                    type, type_instance,
-                                    stats[plugin][plugin_instance][type][type_instance])
+                        type_value = stats[plugin][plugin_instance][type]
+                        if not isinstance(type_value, dict):
+                            self.dispatch_value(plugin, plugin_instance, type, None, type_value)
+                        else:
+                          for type_instance in stats[plugin][plugin_instance][type].keys():
+                              self.dispatch_value(plugin, plugin_instance,
+                                      type, type_instance,
+                                      stats[plugin][plugin_instance][type][type_instance])
         except Exception as exc:
             collectd.error("%s: failed to dispatch values :: %s :: %s"
                     % (self.prefix, exc, traceback.format_exc()))
@@ -89,10 +93,15 @@ class Base(object):
         val = collectd.Values(type='gauge')
         val.plugin=plugin
         val.plugin_instance=plugin_instance
-        val.type_instance="%s-%s" % (type, type_instance)
+        if type_instance is not None:
+            val.type_instance="%s-%s" % (type, type_instance)
+        else:
+            val.type_instance=type
         val.values=[value]
         val.interval = self.interval
         val.dispatch()
+        self.logverbose("sent metric %s.%s.%s.%s.%s" 
+                % (plugin, plugin_instance, type, type_instance, value))
 
     def read_callback(self):
         try:

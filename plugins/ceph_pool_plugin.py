@@ -45,7 +45,9 @@ class CephPoolPlugin(base.Base):
     def get_stats(self):
         """Retrieves stats from ceph pools"""
 
-        data = { self.prefix: { self.cluster: {} } }
+        ceph_cluster = "%s-%s" % (self.prefix, self.cluster)
+
+        data = { ceph_cluster: {} }
 
         stats_output = None
         try:
@@ -67,24 +69,23 @@ class CephPoolPlugin(base.Base):
 
         # push osd pool stats results
         for pool in json_stats_data:
-            data[self.prefix][self.cluster][pool['pool_name']] = {}
-            pool_data = data[self.prefix][self.cluster][pool['pool_name']]
+            pool_key = "pool-%s" % pool['pool_name']
+            data[ceph_cluster][pool_key] = {}
+            pool_data = data[ceph_cluster][pool_key] 
             for stat in ('read_bytes_sec', 'write_bytes_sec', 'op_per_sec'):
-                if pool['client_io_rate'].has_key(stat):
-                    pool_data[stat] = pool['client_io_rate'][stat]
+                pool_data[stat] = pool['client_io_rate'][stat] if pool['client_io_rate'].has_key(stat) else 0
 
         # push df results
         for pool in json_df_data['pools']:
-            pool_data = data[self.prefix][self.cluster][pool['name']]
+            pool_data = data[ceph_cluster]["pool-%s" % pool['name']]
             for stat in ('bytes_used', 'kb_used', 'objects'):
-                if pool.has_key(stat):
-                  pool_data[stat] = pool['stats'][stat]
+                pool_data[stat] = pool['stats'][stat] if pool['stats'].has_key(stat) else 0
 
         # push totals from df
-        data[self.prefix][self.cluster]['cluster'] = {}
-        data[self.prefix][self.cluster]['cluster']['total_space'] = int(json_df_data['stats']['total_space']) * 1024.0
-        data[self.prefix][self.cluster]['cluster']['total_used'] = int(json_df_data['stats']['total_used']) * 1024.0
-        data[self.prefix][self.cluster]['cluster']['total_avail'] = int(json_df_data['stats']['total_avail']) * 1024.0
+        data[ceph_cluster]['cluster'] = {}
+        data[ceph_cluster]['cluster']['total_space'] = int(json_df_data['stats']['total_space']) * 1024.0
+        data[ceph_cluster]['cluster']['total_used'] = int(json_df_data['stats']['total_used']) * 1024.0
+        data[ceph_cluster]['cluster']['total_avail'] = int(json_df_data['stats']['total_avail']) * 1024.0
 
         return data
 

@@ -45,7 +45,9 @@ class CephMonPlugin(base.Base):
     def get_stats(self):
         """Retrieves stats from ceph mons"""
 
-        data = { self.prefix: { self.cluster: { 'mon': { 'number': 0, 'quorum': 0 } } } }
+        ceph_cluster = "%s-%s" % (self.prefix, self.cluster)
+
+        data = { ceph_cluster: { 'mon': { 'number': 0, 'quorum': 0 } } }
         output = None
         try:
             output = subprocess.check_output(['ceph', 'mon', 'dump', '--format', 'json'])
@@ -59,8 +61,8 @@ class CephMonPlugin(base.Base):
 
         json_data = json.loads(output)
 
-        data[self.prefix][self.cluster]['mon']['number'] = len(json_data['mons'])
-        data[self.prefix][self.cluster]['mon']['quorum'] = len(json_data['quorum'])
+        data[ceph_cluster]['mon']['number'] = len(json_data['mons'])
+        data[ceph_cluster]['mon']['quorum'] = len(json_data['quorum'])
 
         return data
 

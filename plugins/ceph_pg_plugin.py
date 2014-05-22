@@ -43,7 +43,9 @@ class CephPGPlugin(base.Base):
     def get_stats(self):
         """Retrieves stats from ceph pgs"""
 
-        data = { self.prefix: { self.cluster: { 'pg': { } } } }
+        ceph_cluster = "%s-%s" % (self.prefix, self.cluster)
+
+        data = { ceph_cluster: { 'pg': { } }  }
         output = None
         try:
             output = subprocess.check_output(['ceph', 'pg', 'dump', '--format', 'json'])
@@ -57,7 +59,7 @@ class CephPGPlugin(base.Base):
 
         json_data = json.loads(output)
 
-        pg_data = data[self.prefix][self.cluster]['pg']
+        pg_data = data[ceph_cluster]['pg']
         # number of pgs in each possible state
         for pg in json_data['pg_stats']:
             for state in pg['state'].split('+'):

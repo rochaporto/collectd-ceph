@@ -44,7 +44,9 @@ class CephLatencyPlugin(base.Base):
     def get_stats(self):
         """Retrieves stats regarding latency to write to a test pool"""
 
-        data = { self.prefix: { self.cluster: {} } }
+        ceph_cluster = "%s-%s" % (self.prefix, self.cluster)
+
+        data = { ceph_cluster: {} }
 
         output = None
         try:
@@ -60,11 +62,11 @@ class CephLatencyPlugin(base.Base):
 
         results = output.split('\n')
         # push values
-        data[self.prefix][self.cluster]['cluster'] = {}
-        data[self.prefix][self.cluster]['cluster']['avg_latency'] = results[0]
-        data[self.prefix][self.cluster]['cluster']['stddev_latency'] = results[1]
-        data[self.prefix][self.cluster]['cluster']['max_latency'] = results[2]
-        data[self.prefix][self.cluster]['cluster']['min_latency'] = results[3]
+        data[ceph_cluster]['cluster'] = {}
+        data[ceph_cluster]['cluster']['avg_latency'] = results[0]
+        data[ceph_cluster]['cluster']['stddev_latency'] = results[1]
+        data[ceph_cluster]['cluster']['max_latency'] = results[2]
+        data[ceph_cluster]['cluster']['min_latency'] = results[3]
 
         return data
 

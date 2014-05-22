@@ -45,10 +45,12 @@ class CephOsdPlugin(base.Base):
     def get_stats(self):
         """Retrieves stats from ceph osds"""
 
-        data = { self.prefix: { self.cluster: { 
+        ceph_cluster = "%s-%s" % (self.prefix, self.cluster)
+
+        data = { ceph_cluster: { 
             'pool': { 'number': 0 },
             'osd': { 'up': 0, 'in': 0, 'down': 0, 'out': 0} 
-        } } }
+        } }
         output = None
         try:
             output = subprocess.check_output(['ceph', 'osd', 'dump', '--format', 'json'])
@@ -63,9 +65,9 @@ class CephOsdPlugin(base.Base):
         json_data = json.loads(output)
 
         # number of pools
-        data[self.prefix][self.cluster]['pool']['number'] = len(json_data['pools'])
+        data[ceph_cluster]['pool']['number'] = len(json_data['pools'])
 
-        osd_data = data[self.prefix][self.cluster]['osd']
+        osd_data = data[ceph_cluster]['osd']
         # number of osds in each possible state
         for osd in json_data['osds']:
             if osd['up'] == 1:
