@@ -26,6 +26,7 @@
 # collectd-python:
 #   http://collectd.org/documentation/manpages/collectd-python.5.shtml
 #
+
 import collectd
 import traceback
 
@@ -45,7 +46,7 @@ class Base(object):
             elif node.key == "Prefix":
                 self.prefix = node.values[0]
             elif node.key == 'Cluster':
-                self.cluster == node.values[0]
+                self.cluster = node.values[0]
             else:
                 collectd.warning("%s: unknown config key: %s" % (self.prefix, node.key))
 
