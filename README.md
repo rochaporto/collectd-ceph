@@ -49,7 +49,7 @@ It assumes an existing installation of [collectd](http://collectd.org/documentat
 
 If you want to publish to [graphite](http://graphite.readthedocs.org/), configure the [write_graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) collectd plugin.
 
-And you might want the awesome [grafana](http://grafana.org) too, which gives you good looking and interactive displays.
+And you might want the awesome [grafana](http://grafana.org) too, which provides awesome displays.
 
 ## Setup and Configuration
 
