@@ -5,18 +5,25 @@ collectd-ceph
 
 A set of collectd plugins monitoring and publishing metrics for Ceph components.
 
-One common setup is to push the metrics into graphite, and display using dashboards based on graphite or grafana
-
 ## Screenshots
 
-Grafana dashboard display.
+Sample Grafana dashboard displaying common metrics from the plugins:
+
 ![image](https://raw.github.com/rochaporto/collectd-ceph/master/public/ceph-overview.png)
 
 ## Requirements
 
-It assumes an existing installation of [collectd](http://collectd.org/documentation.shtml).
+It assumes an existing installation of [collectd](http://collectd.org/documentation.shtml) - check docs for details.
 
-Check its documentation for details.
+## Plugins and Metrics
+
+There are several plugins, usually mapping to the ceph command line tools.
+
+Find below a list of the available plugins and the metrics they publish.
+
+* ceph_monitor_plugin
+  * ceph-<cluster>.mon.gauge.number (total number of monitors)
+  * ceph-<cluster>.mon.gauge.quorum (number of monitors in quorum)
 
 ## Setup and Configuration
 
@@ -25,9 +32,9 @@ The example configuration(s) below assume the plugins to be located under `/usr/
 If you're under ubuntu, consider installing from [this ppa](https://launchpad.net/~rocha-porto/+archive/collectd).
 
 Each plugin should have its own config file, under `/etc/collectd/conf.d/<pluginname>.conf`, which
-should follow some similar to:
+should follow something similar to:
 ```
-# cat /etc/collectd/conf.d/ceph_health.conf
+# cat /etc/collectd/conf.d/ceph_pool.conf
 
 <LoadPlugin "python">
     Globals true
@@ -36,10 +43,13 @@ should follow some similar to:
 <Plugin "python">
     ModulePath "/usr/lib/collectd/plugins/ceph"
 
-    Import "ceph_health_plugin"
+    Import "ceph_pool_plugin"
 
-    <Module "ceph_health_plugin">
-        Verbose "False"
+    <Module "ceph_pool_plugin">
+        Verbose "True"
+        Cluster "ceph"
+        Interval "60"
+        TestPool "test"
     </Module>
 </Plugin>
 ```
@@ -50,18 +60,21 @@ If you use puppet for configuration, then try this excelent [collectd](https://g
 
 It has plenty of docs on how to use it, but for our specific plugins:
 ```
-  collectd::plugin::python { 'ceph_health':
+  collectd::plugin::python { 'ceph_pool':
     modulepath => '/usr/lib/collectd/plugins/ceph',
-    module     => 'ceph_health_plugin',
+    module     => 'ceph_pool_plugin',
     config     => {
-      'Verbose'    => 'true',
+      'Verbose'  => 'true',
+      'Cluster'  => 'ceph',
+      'Interval' => 60,
+      'TestPool' => 'test',
     },
   }
 ```
 
 ## Limitations
 
-The debian packaging files are provided, but don't expect the deb in the official repos.
+The debian packaging files are provided, but not yet available in the official repos.
 
 ## Development
 
@@ -81,26 +94,4 @@ Please log tickets and issues at the [github home](https://github.com/rochaporto
 
 ## Additional Notes
 
-### Ubuntu Packaging
-
-[These instructions](http://packaging.ubuntu.com/html/packaging-new-software.html) should give full details.
-
-In summary, do this once to prepare your environment:
-```
-pbuilder-dist precise create
-```
-
-and for every release (from master):
-```
-mkdir /tmp/build-collectd-os
-cd /tmp/build-collectd-os
-wget https://github.com/rochaporto/collectd-ceph/archive/master.zip
-unzip master.zip
-tar zcvf collectd-ceph-0.1.tar.gz collectd-ceph-master/
-bzr dh-make collectd-ceph 0.1 collectd-ceph-0.1.tar.gz
-cd collectd-ceph
-bzr builddeb -S
-cd ../build-area
-pbuilder-dist precise build collectd-ceph_0.1-1ubuntu1.dsc
-dput ppa:rocha-porto/collectd ../collectd-ceph_0.1-1ubuntu1_source.changes
-```
+Some [handy instructions][docs/ubuntu.md] on how to build for ubuntu.
