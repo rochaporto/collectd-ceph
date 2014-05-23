@@ -1,0 +1,713 @@
+{
+  "title": "Ceph Overview",
+  "services": {
+    "filter": {
+      "list": [
+        {
+          "type": "filter",
+          "name": "cluster",
+          "query": "collectd.*.ceph-*",
+          "includeAll": true,
+          "options": [
+            {
+              "text": "All",
+              "value": "*"
+            },
+            {
+              "text": "ceph-ceph",
+              "value": "ceph-ceph"
+            }
+          ],
+          "current": {
+            "text": "All",
+            "value": "*"
+          }
+        },
+        {
+          "type": "filter",
+          "name": "pool",
+          "query": "collectd.*.*.pool-*",
+          "includeAll": true,
+          "options": [
+            {
+              "text": "All",
+              "value": "*"
+            },
+            {
+              "text": "pool-_intent-log",
+              "value": "pool-_intent-log"
+            },
+            {
+              "text": "pool-_log",
+              "value": "pool-_log"
+            },
+            {
+              "text": "pool-_rgw",
+              "value": "pool-_rgw"
+            },
+            {
+              "text": "pool-_rgw_control",
+              "value": "pool-_rgw_control"
+            },
+            {
+              "text": "pool-_rgw_gc",
+              "value": "pool-_rgw_gc"
+            },
+            {
+              "text": "pool-_rgw_root",
+              "value": "pool-_rgw_root"
+            },
+            {
+              "text": "pool-_usage",
+              "value": "pool-_usage"
+            },
+            {
+              "text": "pool-_users",
+              "value": "pool-_users"
+            },
+            {
+              "text": "pool-_users_email",
+              "value": "pool-_users_email"
+            },
+            {
+              "text": "pool-_users_swift",
+              "value": "pool-_users_swift"
+            },
+            {
+              "text": "pool-_users_uid",
+              "value": "pool-_users_uid"
+            },
+            {
+              "text": "pool-data",
+              "value": "pool-data"
+            },
+            {
+              "text": "pool-images",
+              "value": "pool-images"
+            },
+            {
+              "text": "pool-metadata",
+              "value": "pool-metadata"
+            },
+            {
+              "text": "pool-rbd",
+              "value": "pool-rbd"
+            },
+            {
+              "text": "pool-volumes",
+              "value": "pool-volumes"
+            }
+          ],
+          "current": {
+            "text": "All",
+            "value": "*"
+          }
+        }
+      ],
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      }
+    }
+  },
+  "rows": [
+    {
+      "title": "Row1",
+      "height": "300px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "span": 6,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "bytes",
+            "none"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 0,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "alias(sumSeries(collectd.*.[[cluster]].[[pool]].gauge.bytes_used),'Pool Used')",
+              "hide": false
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].cluster.gauge.total_avail,'Available')",
+              "hide": false
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].cluster.gauge.total_space,'Total')",
+              "hide": false
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].cluster.gauge.total_used,'Raw Used')"
+            }
+          ],
+          "aliasColors": {},
+          "aliasYAxis": {},
+          "title": "Storage"
+        },
+        {
+          "span": 6,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "bytes",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 0,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "alias(sumSeries(collectd.*.[[cluster]].[[pool]].gauge.op_per_sec-read_bytes_sec),'Read')"
+            },
+            {
+              "target": "alias(sumSeries(collectd.*.[[cluster]].[[pool]].gauge.write_bytes_sec), 'Write')"
+            }
+          ],
+          "aliasColors": {},
+          "aliasYAxis": {},
+          "title": "Throughput"
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "span": 6,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "none",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 0,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "alias(sumSeries(collectd.*.[[cluster]].[[pool]].gauge.op_per_sec),'IOPS')"
+            }
+          ],
+          "aliasColors": {},
+          "aliasYAxis": {},
+          "title": "IOPS"
+        },
+        {
+          "span": 6,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "ms",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 0,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "alias(collectd.*.[[cluster]].cluster.gauge.avg_latency,'Avg')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].cluster.gauge.max_latency,'Max')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].cluster.gauge.min_latency,'Min')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].cluster.gauge.stddev_latency,'Stddev')"
+            }
+          ],
+          "aliasColors": {},
+          "aliasYAxis": {},
+          "title": "Cluster I/O Latency"
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "span": 4,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "none",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 0,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "alias(collectd.*.[[cluster]].mon.gauge.number,'Total')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].mon.gauge.quorum,'Quorum')"
+            }
+          ],
+          "aliasColors": {},
+          "aliasYAxis": {},
+          "title": "Monitors"
+        },
+        {
+          "span": 4,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "none",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 0,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "alias(collectd.*.[[cluster]].osd.gauge.up,'Up')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].osd.gauge.down,'Down')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].osd.gauge.in,'In')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].osd.gauge.out,'Out')"
+            }
+          ],
+          "aliasColors": {},
+          "aliasYAxis": {},
+          "title": "OSDs",
+          "leftYAxisLabel": "",
+          "rightYAxisLabel": ""
+        },
+        {
+          "span": 4,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "none",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 0,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": false,
+            "max": false,
+            "current": true,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.creating,'Creating')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.clean,'Clean')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.active,'Active')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.down,'Down')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.replay,'Replay')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.splitting,'Splitting')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.scrubbing,'Scrubbing')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.degraded,'Degraded')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.inconsistent,'Inconsistent')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.peering,'Peering')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.repair,'Repair')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.recovering,'Recovering')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.backfill,'Backfill')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.wait-backfill,'Wait Backfill')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.backfill-toofull,'Backfill Toofull')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.incomplete,'Incomplete')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.stale,'Stale')"
+            },
+            {
+              "target": "alias(collectd.*.[[cluster]].pg.gauge.remapped,'Remapped')"
+            }
+          ],
+          "aliasColors": {},
+          "aliasYAxis": {},
+          "title": "Placement Groups"
+        }
+      ],
+      "notice": false
+    }
+  ],
+  "editable": true,
+  "failover": false,
+  "panel_hints": true,
+  "style": "dark",
+  "pulldowns": [
+    {
+      "type": "filtering",
+      "collapse": false,
+      "notice": false,
+      "enable": true
+    },
+    {
+      "type": "annotations",
+      "enable": false
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "collapse": false,
+      "notice": false,
+      "enable": true,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "now": true
+    }
+  ],
+  "loader": {
+    "save_gist": false,
+    "save_elasticsearch": true,
+    "save_local": true,
+    "save_default": true,
+    "save_temp": true,
+    "save_temp_ttl_enable": true,
+    "save_temp_ttl": "30d",
+    "load_gist": false,
+    "load_elasticsearch": true,
+    "load_elasticsearch_size": 20,
+    "load_local": false,
+    "hide": false
+  },
+  "refresh": false,
+  "tags": [],
+  "timezone": "browser"
+}
