@@ -40,10 +40,10 @@ Find below a list of the available plugins and the metrics they publish.
 * ceph_pg_plugin
   * ceph-&lt;cluster>.pg.gauge.&lt;state> (number of pgs in &lt;state>)
 * ceph_latency_plugin
-  * ceph-&lt;cluster>.cluster.avg_latency (avg cluster latency)
-  * ceph-&lt;cluster>.cluster.max_latency (max cluster latency)
-  * ceph-&lt;cluster>.cluster.min_latency (min cluster latency)
-  * ceph-&lt;cluster>.cluster.stddev_latency (stddev of cluster latency)
+  * ceph-&lt;cluster>.cluster.gauge.avg_latency (avg cluster latency)
+  * ceph-&lt;cluster>.cluster.gauge.max_latency (max cluster latency)
+  * ceph-&lt;cluster>.cluster.gauge.min_latency (min cluster latency)
+  * ceph-&lt;cluster>.cluster.gauge.stddev_latency (stddev of cluster latency)
 
 ## Requirements
 
