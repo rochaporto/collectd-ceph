@@ -11,10 +11,6 @@ Sample Grafana dashboard displaying common metrics from the plugins.
 
 ![image](https://raw.github.com/rochaporto/collectd-ceph/master/public/ceph-overview.png)
 
-## Requirements
-
-It assumes an existing installation of [collectd](http://collectd.org/documentation.shtml) - check docs for details.
-
 ## Plugins and Metrics
 
 There are several plugins, usually mapping to the ceph command line tools.
@@ -46,6 +42,14 @@ Find below a list of the available plugins and the metrics they publish.
   * ceph-&lt;cluster>.cluster.max_latency (max cluster latency)
   * ceph-&lt;cluster>.cluster.min_latency (min cluster latency)
   * ceph-&lt;cluster>.cluster.stddev_latency (stddev of cluster latency)
+
+## Requirements
+
+It assumes an existing installation of [collectd](http://collectd.org/documentation.shtml) - check docs for details.
+
+If you want to publish to [graphite](http://graphite.readthedocs.org/), configure the [write_graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) collectd plugin.
+
+And you might want the awesome [grafana](http://grafana.org) too, which gives you good looking and interactive displays.
 
 ## Setup and Configuration
 
