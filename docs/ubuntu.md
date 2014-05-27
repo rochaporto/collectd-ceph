@@ -1,5 +1,7 @@
 # Ubuntu Packaging
 
+## Building the collectd-ceph package
+
 [These instructions](http://packaging.ubuntu.com/html/packaging-new-software.html) should give full details.
 
 In summary, do this once to prepare your environment:
@@ -21,4 +23,17 @@ bzr builddeb -S
 cd ../build-area
 pbuilder-dist precise build collectd-ceph_0.2.0-1ubuntu1.dsc
 dput ppa:rocha-porto/collectd ../collectd-ceph_0.2.0-1ubuntu1_source.changes
+```
+
+## Rebuilding a newer collectd version for precise
+
+```
+bzr branch lp:ubuntu/saucy/collectd
+sudo apt-get build-dep collectd
+cd collectd/
+dch -i
+bzr bd -- -S -us -uc
+cd ../
+debsign collectd_5.1.0-3.1ubuntu4_source.changes
+dput -f ppa:rocha-porto/collectd5-precise collectd_5.1.0-3.1ubuntu4_source.changes
 ```
