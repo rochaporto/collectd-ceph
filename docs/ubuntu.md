@@ -37,3 +37,15 @@ cd ../
 debsign collectd_5.1.0-3.1ubuntu4_source.changes
 dput -f ppa:rocha-porto/collectd5-precise collectd_5.1.0-3.1ubuntu4_source.changes
 ```
+
+## Rebuilding from another ppa
+
+```
+add-apt-repository ppa:user/ppa-name
+apt-get source collectd=5.3.0
+cd collectd-5.3.0/
+dpkg-buildpackage -rfakeroot -d -us -uc -S
+cd ..
+debsign collectd_5.3.0_source.changes
+dput -f ppa:rocha-porto/collectd5precise collectd_5.3.0_source.changes
+```
