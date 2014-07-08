@@ -51,8 +51,8 @@ class CephPoolPlugin(base.Base):
 
         stats_output = None
         try:
-            stats_output = subprocess.check_output(['ceph', 'osd', 'pool', 'stats', '-f', 'json'])
-            df_output = subprocess.check_output(['ceph', 'df', '-f', 'json'])
+            stats_output = subprocess.check_output('ceph osd pool stats -f json', shell=True)
+            df_output = subprocess.check_output('ceph df -f json', shell=True)
         except Exception as exc:
             collectd.error("ceph-pool: failed to ceph pool stats :: %s :: %s"
                     % (exc, traceback.format_exc()))
