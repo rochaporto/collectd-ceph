@@ -67,6 +67,14 @@ class CephOsdPlugin(base.Base):
         # number of pools
         data[ceph_cluster]['pool']['number'] = len(json_data['pools'])
 
+        # pool metadata
+        for pool in json_data['pools']:
+            pool_name = "pool-%s" % pool['pool_name']
+            data[ceph_cluster][pool_name] = {}
+            data[ceph_cluster][pool_name]['size'] = pool['size']
+            data[ceph_cluster][pool_name]['pg_num'] = pool['pg_num']
+            data[ceph_cluster][pool_name]['pgp_num'] = pool['pg_placement_num']
+
         osd_data = data[ceph_cluster]['osd']
         # number of osds in each possible state
         for osd in json_data['osds']:
