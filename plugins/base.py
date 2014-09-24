@@ -35,15 +35,16 @@ class Base(object):
 
     def __init__(self):
         self.verbose = False
+        self.debug = False
         self.prefix = ''
         self.cluster = 'ceph'
         self.testpool = 'test'
-        self.interval = None
+        self.interval = 60.0
 
     def config_callback(self, conf):
         """Takes a collectd conf object and fills in the local config."""
         for node in conf.children:
-            elif node.key == "Verbose":
+            if node.key == "Verbose":
                 if node.values[0] in ['True', 'true']:
                     self.verbose = True
             elif node.key == "Debug":
