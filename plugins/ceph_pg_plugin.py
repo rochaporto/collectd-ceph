@@ -67,6 +67,17 @@ class CephPGPlugin(base.Base):
                     pg_data[state] = 0
                 pg_data[state] += 1
     
+        # osd perf data
+        for osd in json_data['osd_stats']:
+            osd_id = "osd-%s" % osd['osd']
+            data[ceph_cluster][osd_id] = {}
+            data[ceph_cluster][osd_id]['kb_used'] = osd['kb_used']
+            data[ceph_cluster][osd_id]['kb_total'] = osd['kb']
+            data[ceph_cluster][osd_id]['snap_trim_queue_len'] = osd['snap_trim_queue_len']
+            data[ceph_cluster][osd_id]['num_snap_trimming'] = osd['num_snap_trimming']
+            data[ceph_cluster][osd_id]['apply_latency_ms'] = osd['fs_perf_stat']['apply_latency_ms']
+            data[ceph_cluster][osd_id]['commit_latency_ms'] = osd['fs_perf_stat']['commit_latency_ms']
+
         return data
 
 try:
