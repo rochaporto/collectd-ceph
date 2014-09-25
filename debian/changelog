@@ -1,3 +1,9 @@
+collectd-ceph (0.4.0-1ubuntu1) precise; urgency=low
+
+  * Added osd latency metrics and usage
+
+ -- Ricardo Rocha <ricardo@catalyst.net.nz>  Thu, 25 Sep 2014 15:08:52 +1200
+
 collectd-ceph (0.3.0-1ubuntu1) precise; urgency=low
 
   * Publish pool metadata stats (#17)

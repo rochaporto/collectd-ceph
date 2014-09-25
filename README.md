@@ -39,6 +39,10 @@ Find below a list of the available plugins and the metrics they publish.
   * ceph-&lt;cluster>.cluster.gauge.total_used (cluster raw space used)
 * ceph_pg_plugin
   * ceph-&lt;cluster>.pg.gauge.&lt;state> (number of pgs in &lt;state>)
+  * ceph-&lt;cluster>.osd-&lt;id>.gauge.fs_commit_latency (fs commit latency for osd)
+  * ceph-&lt;cluster>.osd-&lt;id>.gauge.apply_commit_latency (apply commit latency for osd)
+  * ceph-&lt;cluster>.osd-&lt;id>.gauge.kb_used (kb used by osd)
+  * ceph-&lt;cluster>.osd-&lt;id>.gauge.kb (total space of osd)
 * ceph_latency_plugin
   * ceph-&lt;cluster>.cluster.gauge.avg_latency (avg cluster latency)
   * ceph-&lt;cluster>.cluster.gauge.max_latency (max cluster latency)
