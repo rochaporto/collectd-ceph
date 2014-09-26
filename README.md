@@ -11,6 +11,8 @@ Sample Grafana dashboard displaying common metrics from the plugins.
 
 ![image](https://raw.github.com/rochaporto/collectd-ceph/master/public/ceph-overview.png)
 
+![image](https://raw.github.com/rochaporto/collectd-ceph/master/public/ceph-dash2.png)
+
 [Check here](grafana/ceph-overview.json) for the dashboard definition.
 
 ## Plugins and Metrics
