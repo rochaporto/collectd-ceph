@@ -106,6 +106,10 @@ It has plenty of docs on how to use it, but for our specific plugins:
   }
 ```
 
+### Docker
+
+Check [this repo](https://github.com/bobrik/ceph-collectd-graphite) for a nice docker setup to run collectd-ceph (thanks to Ian Babrou).
+
 ## Limitations
 
 The debian packaging files are provided, but not yet available in the official repos.
