@@ -124,7 +124,7 @@ GPLv2 (check LICENSE).
 
 ## Contributors
 
-Ricardo Rocha <ricardo@catalyst.net.nz>
+Ricardo Rocha <rocha.porto@gmail.com>
 
 ## Support
 
