@@ -712,7 +712,7 @@
           },
           "targets": [
             {
-              "target": "aliasByNode(collectd.[[cluster]].*.osd-*.gauge.apply_latency_ms,3)"
+              "target": "aliasByNode(collectd.*.[[cluster]].osd-*.gauge.apply_latency_ms,3)"
             }
           ],
           "aliasColors": {},
@@ -771,7 +771,7 @@
           },
           "targets": [
             {
-              "target": "aliasByNode(collectd.[[cluster]].*.osd-*.gauge.commit_latency_ms,3)"
+              "target": "aliasByNode(collectd.*.[[cluster]].osd-*.gauge.commit_latency_ms,3)"
             }
           ],
           "aliasColors": {},
@@ -840,7 +840,7 @@
           },
           "targets": [
             {
-              "target": "aliasByNode(scale(collectd.[[cluster]].*.osd-*.gauge.kb_used,1000),3)"
+              "target": "aliasByNode(scale(collectd.*.[[cluster]].osd-*.gauge.kb_used,1000),3)"
             }
           ],
           "aliasColors": {},
@@ -899,7 +899,7 @@
           },
           "targets": [
             {
-              "target": "aliasByNode(collectd.[[cluster]].*.osd-*.gauge.num_snap_trimming,3)"
+              "target": "aliasByNode(collectd.*.[[cluster]].osd-*.gauge.num_snap_trimming,3)"
             }
           ],
           "aliasColors": {},
