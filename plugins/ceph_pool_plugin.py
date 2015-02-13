@@ -83,9 +83,16 @@ class CephPoolPlugin(base.Base):
 
         # push totals from df
         data[ceph_cluster]['cluster'] = {}
-        data[ceph_cluster]['cluster']['total_space'] = int(json_df_data['stats']['total_space']) * 1024.0
-        data[ceph_cluster]['cluster']['total_used'] = int(json_df_data['stats']['total_used']) * 1024.0
-        data[ceph_cluster]['cluster']['total_avail'] = int(json_df_data['stats']['total_avail']) * 1024.0
+        if json_df_data['stats'].has_key('total_bytes'):
+            # ceph 0.84+
+            data[ceph_cluster]['cluster']['total_space'] = int(json_df_data['stats']['total_bytes'])
+            data[ceph_cluster]['cluster']['total_used'] = int(json_df_data['stats']['total_used_bytes'])
+            data[ceph_cluster]['cluster']['total_avail'] = int(json_df_data['stats']['total_avail_bytes'])
+        else:
+            # ceph < 0.84
+            data[ceph_cluster]['cluster']['total_space'] = int(json_df_data['stats']['total_space']) * 1024.0
+            data[ceph_cluster]['cluster']['total_used'] = int(json_df_data['stats']['total_used']) * 1024.0
+            data[ceph_cluster]['cluster']['total_avail'] = int(json_df_data['stats']['total_avail']) * 1024.0
 
         return data
 
