@@ -50,7 +50,8 @@ class CephMonPlugin(base.Base):
         data = { ceph_cluster: { 'mon': { 'number': 0, 'quorum': 0 } } }
         output = None
         try:
-            output = subprocess.check_output('ceph mon dump --format json', shell=True)
+            cephmoncmdline='ceph mon dump --format json --cluster ' + self.cluster
+            output = subprocess.check_output(cephmoncmdline, shell=True)
         except Exception as exc:
             collectd.error("ceph-mon: failed to ceph mon dump :: %s :: %s"
                     % (exc, traceback.format_exc()))
